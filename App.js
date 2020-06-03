@@ -1,32 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Routes from './src/routes';
-import { StatusBar } from 'react-native';
+import {
+  configureFonts,
+  DefaultTheme,
+  Provider as PaperProvider,
+} from 'react-native-paper';
 
-import * as Font from 'expo-font';
-import { AppLoading } from 'expo';
+const fontConfig = {
+  default: {
+    regular: {
+      fontFamily: 'sans-serif',
+      fontWeight: 'normal',
+    },
+    medium: {
+      fontFamily: 'sans-serif-medium',
+      fontWeight: 'normal',
+    },
+    light: {
+      fontFamily: 'sans-serif-light',
+      fontWeight: 'normal',
+    },
+    thin: {
+      fontFamily: 'sans-serif-thin',
+      fontWeight: 'normal',
+    },
+  },
+};
 
-const fetchFonts = () => {
-  return Font.loadAsync({
-    'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
-  });
+const theme = {
+  ...DefaultTheme,
+  fonts: configureFonts(fontConfig),
 };
 
 export default function App() {
-  const [dataLoaded, setDataLoaded] = useState(false);
-
-  if (!dataLoaded) {
-    return (
-      <AppLoading
-        startAsync={fetchFonts}
-        onFinish={() => setDataLoaded(true)}
-      />
-    );
-  }
-
   return (
-    <>
-      <StatusBar translucent barStyle="dark-content" />
+    <PaperProvider theme={theme}>
       <Routes />
-    </>
+    </PaperProvider>
   );
 }
