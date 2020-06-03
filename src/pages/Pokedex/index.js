@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, ScrollView, Text } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { Title } from 'react-native-paper';
 
 import Background from '~/components/Background';
@@ -17,12 +17,11 @@ export default function Pokedex() {
       const listPokemon = [];
 
       for (let index = 1; index <= 40; index++) {
-        const response = await api.get(`/pokemon/${index}`);
+        const { data } = await api.get(`/pokemon/${index}`);
 
-        listPokemon.push(response.data);
+        const { id, name } = data;
+        listPokemon.push({ id, name });
       }
-
-      console.log(listPokemon);
 
       setPokemons(listPokemon);
     } catch (err) {
