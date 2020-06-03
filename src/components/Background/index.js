@@ -8,7 +8,7 @@ import { widthPercentageToDP } from '~/config/pixel';
 export default function Background({ children }) {
   const styles = StyleSheet.create({
     container: {
-      marginHorizontal: widthPercentageToDP('8.35%'),
+      marginHorizontal: widthPercentageToDP('7%'),
     },
   });
 

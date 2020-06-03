@@ -1,20 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
-import { Title, Text } from 'react-native-paper';
+import { Title } from 'react-native-paper';
 
 import Background from '~/components/Background';
+import ListPokedex from '~/components/ListPokedex';
+
+import api from '~/services/api';
+
+import styles from './styles';
 
 export default function Pokedex() {
+  const [pokemons, setPokemons] = useState([]);
+
+  async function loadPokemon() {
+    try {
+      const listPokemon = [];
+
+      for (let index = 1; index <= 40; index++) {
+        const response = await api.get(`/pokemon/${index}`);
+
+        listPokemon.push(response.data);
+      }
+
+      console.log(listPokemon);
+
+      setPokemons(listPokemon);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    loadPokemon();
+  }, []);
+
   return (
     <Background>
-      <View style={{ marginTop: 50 }}>
-        <Title style={{ fontSize: 26 }}>Pokedex</Title>
+      <View style={styles.containerTitle}>
+        <Title style={styles.title}>Pokedex</Title>
       </View>
-      <View style={{ marginTop: 45 }}>
+      <View style={styles.contentFlat}>
         <FlatList
-          data={[]}
+          data={pokemons}
           keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => <Text>{item}</Text>}
+          renderItem={({ item }) => <ListPokedex {...{ item }} />}
+          numColumns={3}
         />
       </View>
     </Background>

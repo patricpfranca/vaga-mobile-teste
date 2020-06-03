@@ -20,6 +20,9 @@ const Routes = createAppContainer(
     {
       defaultNavigationOptions: {
         title: null,
+        headerTransparent: {
+          backgroundColor: 'transparent',
+        },
       },
     }
   )
