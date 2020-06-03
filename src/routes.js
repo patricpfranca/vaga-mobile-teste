@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Home from './pages/Home';
 import Pokedex from './pages/Pokedex';
+import PokedexDetails from './pages/PokedexDetails';
 
 const Routes = createAppContainer(
   createStackNavigator(
@@ -15,6 +16,9 @@ const Routes = createAppContainer(
       },
       Pokedex: {
         screen: Pokedex,
+      },
+      PokedexDetails: {
+        screen: PokedexDetails,
       },
     },
     {
