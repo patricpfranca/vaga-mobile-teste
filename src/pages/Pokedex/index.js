@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, ScrollView, Text } from 'react-native';
 import { Title } from 'react-native-paper';
 
 import Background from '~/components/Background';
@@ -44,6 +44,7 @@ export default function Pokedex() {
           data={pokemons}
           keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => <ListPokedex {...{ item }} />}
+          showsVerticalScrollIndicator={false}
           numColumns={3}
         />
       </View>

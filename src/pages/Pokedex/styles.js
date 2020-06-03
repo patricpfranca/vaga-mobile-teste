@@ -7,8 +7,10 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 26,
+    color: '#fff',
   },
   contentFlat: {
     marginTop: heightPercentageToDP('7%'),
+    height: '75%',
   },
 });

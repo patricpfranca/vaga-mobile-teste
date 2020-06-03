@@ -15,7 +15,7 @@ export default function Background({ children }) {
   return (
     <View>
       <LinearGradient
-        colors={['rgba(0,0,0,0.8)', 'transparent']}
+        colors={['rgba(0,0,0,0.3)', 'transparent']}
         style={{
           position: 'absolute',
           left: 0,
