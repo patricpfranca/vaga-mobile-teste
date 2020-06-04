@@ -5,8 +5,9 @@ import { widthPercentageToDP, heightPercentageToDP } from '~/config/pixel';
 export default StyleSheet.create({
   title: {
     marginTop: heightPercentageToDP('18.4%'),
-    color: '#fff',
+    color: '#000',
     fontSize: 26,
+    fontWeight: 'bold',
   },
   inputSearch: {
     marginTop: heightPercentageToDP('6.7%'),
