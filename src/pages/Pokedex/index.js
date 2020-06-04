@@ -1,32 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
-import { Title } from 'react-native-paper';
+import { Title, ActivityIndicator } from 'react-native-paper';
 
 import Background from '~/components/Background';
 import ListPokedex from '~/components/ListPokedex';
-
-import api from '~/services/api';
+import PokedexController from '~/controllers/pokedexController';
 
 import styles from './styles';
 
 export default function Pokedex() {
   const [pokemons, setPokemons] = useState([]);
+  const [limit] = useState(20);
+  const [offset, setOffset] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   async function loadPokemon() {
-    try {
-      const listPokemon = [];
+    setLoading(true);
+    const response = await PokedexController.index(limit, offset);
 
-      for (let index = 1; index <= 40; index++) {
-        const { data } = await api.get(`/pokemon/${index}`);
+    setPokemons([...pokemons, ...response.results]);
+    setOffset(offset + 20);
+    setLoading(false);
+  }
 
-        const { id, name } = data;
-        listPokemon.push({ id, name });
-      }
+  async function renderFooter() {
+    if (loading) return null;
 
-      setPokemons(listPokemon);
-    } catch (err) {
-      console.log(err);
-    }
+    return (
+      <View>
+        <ActivityIndicator size="small" color="#D4402F" />
+      </View>
+    );
   }
 
   useEffect(() => {
@@ -41,10 +45,14 @@ export default function Pokedex() {
       <View style={styles.contentFlat}>
         <FlatList
           data={pokemons}
-          keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => <ListPokedex {...{ item }} />}
+          keyExtractor={(item, index) => String(index)}
+          renderItem={({ item, index }) => (
+            <ListPokedex {...{ item }} {...{ index }} />
+          )}
           showsVerticalScrollIndicator={false}
           numColumns={3}
+          onEndReached={loadPokemon}
+          onEndReachedThreshold={0.1}
         />
       </View>
     </Background>
