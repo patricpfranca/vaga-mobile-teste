@@ -12,25 +12,12 @@ export default function Pokedex() {
   const [pokemons, setPokemons] = useState([]);
   const [limit] = useState(20);
   const [offset, setOffset] = useState(0);
-  const [loading, setLoading] = useState(false);
 
   async function loadPokemon() {
-    setLoading(true);
     const response = await PokedexController.index(limit, offset);
 
     setPokemons([...pokemons, ...response.results]);
     setOffset(offset + 20);
-    setLoading(false);
-  }
-
-  async function renderFooter() {
-    if (loading) return null;
-
-    return (
-      <View>
-        <ActivityIndicator size="small" color="#D4402F" />
-      </View>
-    );
   }
 
   useEffect(() => {
