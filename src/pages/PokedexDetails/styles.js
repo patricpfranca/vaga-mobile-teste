@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
+import { widthPercentageToDP, heightPercentageToDP } from '~/config/pixel';
 
 export default StyleSheet.create({
   img: {
-    width: 180,
-    height: 180,
+    width: widthPercentageToDP('50%'),
+    height: heightPercentageToDP('25%'),
     position: 'absolute',
-    marginTop: 100,
+    marginTop: heightPercentageToDP('15.6%'),
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 99,
@@ -15,10 +16,10 @@ export default StyleSheet.create({
   },
   content: {
     backgroundColor: '#fff',
-    marginTop: 240,
-    paddingTop: 40,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    marginTop: heightPercentageToDP('35%'),
+    paddingTop: heightPercentageToDP('5.8%'),
+    borderTopLeftRadius: heightPercentageToDP('2.35%'),
+    borderTopRightRadius: heightPercentageToDP('2.35%'),
   },
   title: {
     textTransform: 'capitalize',
@@ -28,12 +29,12 @@ export default StyleSheet.create({
   boxSize: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginBottom: 20,
-    marginTop: 20,
+    marginBottom: heightPercentageToDP('3.1%'),
+    marginTop: heightPercentageToDP('3.1%'),
   },
   boxItem: {
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: heightPercentageToDP('1.6%'),
   },
   boxText: {
     fontWeight: 'bold',
@@ -42,14 +43,15 @@ export default StyleSheet.create({
     textTransform: 'uppercase',
   },
   contentType: {
-    marginTop: 20,
+    marginTop: heightPercentageToDP('3.1%'),
+    marginBottom: heightPercentageToDP('3.1%'),
   },
   titleType: {
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: heightPercentageToDP('1.6%'),
   },
   contentChips: {
-    marginHorizontal: 20,
+    marginHorizontal: widthPercentageToDP('5.5%'),
     flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -58,11 +60,34 @@ export default StyleSheet.create({
     alignSelf: 'stretch',
     width: '40%',
     alignItems: 'center',
-    borderWidth: 1,
-    margin: 5,
+    borderWidth: StyleSheet.hairlineWidth,
+    margin: heightPercentageToDP('0.5%'),
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   chipText: {
     color: '#000',
     textTransform: 'capitalize',
+  },
+  contentChart: {
+    flexDirection: 'row',
+    height: heightPercentageToDP('33%'),
+    paddingVertical: heightPercentageToDP('1%'),
+  },
+  barChart: {
+    flex: 1,
+    marginLeft: widthPercentageToDP('2.8%'),
+    marginRight: widthPercentageToDP('2.8%'),
+  },
+  barChartInset: {
+    top: 0,
+    bottom: heightPercentageToDP('3.1%'),
   },
 });
