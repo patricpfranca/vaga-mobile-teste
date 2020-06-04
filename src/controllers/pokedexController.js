@@ -13,7 +13,7 @@ class PokedexController {
 
   static async pokemonById(id) {
     try {
-      const { data } = await api.get(`pokemon/${pokemonId}`);
+      const { data } = await api.get(`pokemon/${id}`);
 
       return data;
     } catch (error) {

@@ -13,19 +13,13 @@ import { padDigits } from '~/config/utils/pad';
 import styles from './styles';
 
 export default function PokedexDetails() {
-  const [details, setDetails] = useState({
-    name: '',
-    weight: 0,
-    height: 0,
-    types: [],
-    stats: [],
-  });
+  const [details, setDetails] = useState();
 
   const pokemonId = useNavigationParam('id');
 
   async function load() {
     try {
-      const response = PokedexController.pokemonById(pokemonId);
+      const response = await PokedexController.pokemonById(pokemonId);
 
       setDetails(response);
     } catch (err) {
@@ -38,7 +32,7 @@ export default function PokedexDetails() {
   }, []);
 
   const Labels = ({ x, y, bandwidth }) =>
-    details.stats.map((value, index) => (
+    details?.stats.map((value, index) => (
       <TextSvg
         key={index}
         x={x(0) + 10}
@@ -53,62 +47,66 @@ export default function PokedexDetails() {
   return (
     <Background>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.contentImg}>
-          <Image
-            style={styles.img}
-            source={{
-              uri: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${padDigits(
-                pokemonId
-              )}.png`,
-            }}
-          />
-        </View>
-        <View style={styles.content}>
-          <Title style={styles.title}>{details.name}</Title>
-          <View style={styles.boxSize}>
-            <View style={styles.boxItem}>
-              <Text style={styles.boxText}>{details.weight}kg</Text>
-              <Text style={styles.boxTextType}>weight</Text>
+        {details && (
+          <>
+            <View style={styles.contentImg}>
+              <Image
+                style={styles.img}
+                source={{
+                  uri: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${padDigits(
+                    pokemonId
+                  )}.png`,
+                }}
+              />
             </View>
-            <View style={styles.boxItem}>
-              <Text style={styles.boxText}>{details.height}m</Text>
-              <Text style={styles.boxTextType}>height</Text>
+            <View style={styles.content}>
+              <Title style={styles.title}>{details?.name}</Title>
+              <View style={styles.boxSize}>
+                <View style={styles.boxItem}>
+                  <Text style={styles.boxText}>{details?.weight}kg</Text>
+                  <Text style={styles.boxTextType}>weight</Text>
+                </View>
+                <View style={styles.boxItem}>
+                  <Text style={styles.boxText}>{details?.height}m</Text>
+                  <Text style={styles.boxTextType}>height</Text>
+                </View>
+              </View>
+              <Divider />
+              <View style={styles.contentType}>
+                <Title style={styles.titleType}>Types</Title>
+                <View style={styles.contentChips}>
+                  {details?.types.map((item, index) => (
+                    <Chip
+                      key={index}
+                      mode="outlined"
+                      style={styles.chip}
+                      textStyle={styles.chipText}>
+                      {item.type.name}
+                    </Chip>
+                  ))}
+                </View>
+              </View>
+              <Divider />
+              <View>
+                <Title style={styles.titleType}>Stats</Title>
+                <View style={styles.contentChart}>
+                  <BarChart
+                    style={styles.barChart}
+                    data={details?.stats}
+                    horizontal
+                    yAccessor={({ item }) => item.base_stat}
+                    svg={{ fill: '#40A5B2' }}
+                    contentInset={styles.barChartInset}
+                    spacing={2}
+                    gridMin={0}>
+                    <Grid direction={Grid.Direction.HORIZONTAL} />
+                    <Labels />
+                  </BarChart>
+                </View>
+              </View>
             </View>
-          </View>
-          <Divider />
-          <View style={styles.contentType}>
-            <Title style={styles.titleType}>Types</Title>
-            <View style={styles.contentChips}>
-              {details.types.map((item, index) => (
-                <Chip
-                  key={index}
-                  mode="outlined"
-                  style={styles.chip}
-                  textStyle={styles.chipText}>
-                  {item.type.name}
-                </Chip>
-              ))}
-            </View>
-          </View>
-          <Divider />
-          <View>
-            <Title style={styles.titleType}>Stats</Title>
-            <View style={styles.contentChart}>
-              <BarChart
-                style={styles.barChart}
-                data={details.stats}
-                horizontal
-                yAccessor={({ item }) => item.base_stat}
-                svg={{ fill: '#40A5B2' }}
-                contentInset={styles.barChartInset}
-                spacing={2}
-                gridMin={0}>
-                <Grid direction={Grid.Direction.HORIZONTAL} />
-                <Labels />
-              </BarChart>
-            </View>
-          </View>
-        </View>
+          </>
+        )}
       </ScrollView>
     </Background>
   );
