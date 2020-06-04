@@ -10,6 +10,16 @@ class PokedexController {
       console.log(err);
     }
   }
+
+  static async pokemonById(id) {
+    try {
+      const { data } = await api.get(`pokemon/${pokemonId}`);
+
+      return data;
+    } catch (error) {
+      console.log(err);
+    }
+  }
 }
 
 export default PokedexController;

@@ -6,9 +6,9 @@ import { Text as TextSvg } from 'react-native-svg';
 import { BarChart, Grid } from 'react-native-svg-charts';
 
 import Background from '~/components/Background';
+import PokedexController from '~/controllers/pokedexController';
 
 import { padDigits } from '~/config/utils/pad';
-import api from '~/services/api';
 
 import styles from './styles';
 
@@ -25,9 +25,9 @@ export default function PokedexDetails() {
 
   async function load() {
     try {
-      const response = await api.get(`pokemon/${pokemonId}`);
+      const response = PokedexController.pokemonById(pokemonId);
 
-      setDetails(response.data);
+      setDetails(response);
     } catch (err) {
       console.log(err);
     }

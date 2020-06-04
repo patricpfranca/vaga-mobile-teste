@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
-import { Title, ActivityIndicator } from 'react-native-paper';
+import { Title } from 'react-native-paper';
 
 import Background from '~/components/Background';
 import ListPokedex from '~/components/ListPokedex';

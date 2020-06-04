@@ -50,12 +50,6 @@ export default function Home() {
               onPress={() => navigate('Pokedex')}>
               Pokemons
             </Button>
-            <Button
-              mode="contained"
-              style={[styles.buttons, { backgroundColor: '#77C4FE' }]}
-              onPress={() => console.log('Pressed')}>
-              Pokemons
-            </Button>
           </View>
         </View>
       </TouchableWithoutFeedback>
